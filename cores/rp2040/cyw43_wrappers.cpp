@@ -148,6 +148,13 @@ extern "C" void init_cyw43_wifi() {
     }
 }
 
+extern "C" void deinit_cyw43_wifi() {
+    __isPicoW = CheckPicoW();
+    if (__isPicoW) {
+        cyw43_arch_deinit();
+    }
+}
+
 extern "C" void __lockBluetooth() {
 #ifdef __FREERTOS
     cyw43_thread_enter();

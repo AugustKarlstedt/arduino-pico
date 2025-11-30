@@ -20,6 +20,7 @@ else()
 endif()
 
 include(pico_sdk_import.cmake)
+include(pico_extras_import.cmake)
 
 project(pico_lib C CXX ASM)
 set(CMAKE_C_STANDARD 11)
@@ -214,10 +215,15 @@ target_link_libraries(pico-${cpu}
     pico_util
     tinyusb
     tinyusb_device_unmarked
+    # extras:
+    hardware_rosc
+    hardware_sleep
+    pico_sleep
 )
 if (${cpu} MATCHES "rp2350")
     # RP2350-only peripherals
     target_link_libraries(pico-${cpu}
+        hardware_powman
         hardware_xip_cache
         pico_sha256)
 endif()
