@@ -43,6 +43,7 @@ int cyw43_arch_init(void) {
 
 void cyw43_arch_deinit(void) {
     async_context_t *context = NULL;
+    
 #if CYW43_ENABLE_BLUETOOTH
     btstack_cyw43_deinit(context);
 #endif
@@ -55,11 +56,8 @@ void cyw43_arch_deinit(void) {
 #if CYW43_LWIP
     lwip_freertos_deinit(context);
 #endif
-    // if it is our context, then we de-init it.
-    if (context == &cyw43_async_context_freertos.core) {
-        async_context_deinit(context);
-        cyw43_arch_set_async_context(NULL);
-    }
+
+    cyw43_arch_set_async_context(NULL);
 }
 
 #endif
