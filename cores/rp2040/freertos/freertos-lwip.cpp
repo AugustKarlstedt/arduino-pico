@@ -57,11 +57,6 @@ void __startLWIPThread() {
     vTaskCoreAffinitySet(__lwipTask, 1 << 0);
 }
 
-void __stopLWIPThread() {
-    vQueueDelete(__lwipQueue);
-    vTaskDelete(__lwipTask);
-}
-
 extern "C" void __lwip(__lwip_op op, void *req, bool fromISR) {
     LWIPWork w;
     if (fromISR) {
@@ -106,6 +101,11 @@ static void lwipThread(void *params) {
             switch (w.op) {
             case __lwip_init: {
                 __real_lwip_init();
+                break;
+            }
+            case __lwip_deinit: {
+                vQueueDelete(__lwipQueue);
+                vTaskDelete(__lwipTask);
                 break;
             }
             case __pbuf_header: {

@@ -91,6 +91,7 @@ extern "C" {
 // Enumerated type for LWIP request
 typedef enum {
     __lwip_init = 1000,
+    __lwip_deinit,
 
     __pbuf_header = 2000,
     __pbuf_free,
