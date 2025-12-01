@@ -55,3 +55,6 @@
 [submodule "libraries/MIDIUSB"]
 	path = libraries/MIDIUSB
 	url = https://github.com/earlephilhower/MIDIUSB.git
+[submodule "pico-extras"]
+	path = pico-extras
+	url = git@github.com:AugustKarlstedt/pico-extras.git
