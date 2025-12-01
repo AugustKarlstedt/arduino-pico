@@ -26,10 +26,11 @@ int cyw43_arch_init(void) {
     async_context_t *context = NULL;
     cyw43_arch_set_async_context(context);
 
-    bool ok = cyw43_driver_init(context);
+    bool ok = true;
 #if CYW43_LWIP
     ok &= lwip_freertos_init(context);
 #endif
+    ok &= cyw43_driver_init(context);;
 #if CYW43_ENABLE_BLUETOOTH
     ok &= btstack_cyw43_init(context);
 #endif
