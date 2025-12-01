@@ -4,6 +4,8 @@
 #include "lwip/init.h"
 #include "pico/async_context.h"
 
+void lwip_deinit() {} // deoesnt actually exist so just define it here
+
 static bool done_lwip_init = false;
 
 bool lwip_freertos_init(async_context_t *context) {
