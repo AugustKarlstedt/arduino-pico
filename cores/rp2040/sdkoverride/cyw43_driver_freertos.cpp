@@ -76,6 +76,16 @@ static uint32_t cyw43_irq_init(__unused void *param) {
     return 0;
 }
 
+static uint32_t cyw43_irq_deinit(__unused void *param) {
+#ifndef NDEBUG
+    assert(get_core_num() == 0);
+#endif
+    cyw43_set_irq_enabled(false);
+    gpio_remove_raw_irq_handler(CYW43_PIN_WL_HOST_WAKE, cyw43_gpio_irq_handler);
+    return 0;
+}
+
+
 extern "C" void __wrap_cyw43_post_poll_hook() {
 #ifndef NDEBUG
     assert(get_core_num() == 0);
@@ -135,7 +145,8 @@ extern "C" bool __wrap_cyw43_driver_init(async_context_t *context) {
 }
 
 extern "C" void __wrap_cyw43_driver_deinit(async_context_t *context) {
-    panic("unsipported");
+    cyw43_irq_deinit(nullptr);
+    cyw43_deinit(&cyw43_state);
 }
 
 // Prevent background processing in pensv and access by the other core
