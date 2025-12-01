@@ -25,6 +25,9 @@
 // Create the thread and work queue
 void __startLWIPThread();
 
+// Destroy the thread and work queue
+void __stopLWIPThread();
+
 // Send an LWIP request to the task.  Will block unless fromISR==true
 extern "C" void __lwip(__lwip_op op, void *req, bool fromISR);
 

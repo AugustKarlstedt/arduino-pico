@@ -7,6 +7,7 @@
 -Wl,--wrap=mallinfo
 
 -Wl,--wrap=lwip_init
+-Wl,--wrap=lwip_deinit
 
 -Wl,--wrap=pbuf_header
 -Wl,--wrap=pbuf_free

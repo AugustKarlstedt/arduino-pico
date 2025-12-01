@@ -4,9 +4,6 @@
 #include "lwip/init.h"
 #include "pico/async_context.h"
 
-#include "lwip_wrap.h"
-#include "freertos-lwip.h"
-
 static bool done_lwip_init = false;
 
 bool lwip_freertos_init(async_context_t *context) {
@@ -18,7 +15,7 @@ bool lwip_freertos_init(async_context_t *context) {
 }
 void lwip_freertos_deinit(__unused async_context_t *context) {
     if (done_lwip_init) {
-        __lwip(__lwip_deinit, NULL, false);
+        lwip_deinit();
         done_lwip_init = false;
     }
 }

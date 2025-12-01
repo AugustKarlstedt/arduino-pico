@@ -68,6 +68,19 @@ extern "C" {
         }
     }
 
+    extern void __real_lwip_deinit();
+    void __wrap_lwip_deinit() {
+        if (_lwip_rng) {
+            delete _lwip_rng;
+            _lwip_rng = nullptr;
+            
+#ifdef __FREERTOS
+            __stopLWIPThread();
+#endif
+            // __real_lwip_deinit(); // there is no real deinit!
+        }
+    }
+
     extern u8_t __real_pbuf_header(struct pbuf *p, s16_t header_size);
     u8_t __wrap_pbuf_header(struct pbuf *p, s16_t header_size) {
 #ifdef __FREERTOS
