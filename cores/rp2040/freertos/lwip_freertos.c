@@ -3,9 +3,11 @@
 
 #include "lwip/init.h"
 #include "pico/async_context.h"
+#include "freetros-lwip.h"
+
+static bool done_lwip_init;
 
 bool lwip_freertos_init(async_context_t *context) {
-    static bool done_lwip_init;
     if (!done_lwip_init) {
         lwip_init();
         done_lwip_init = true;
@@ -13,6 +15,9 @@ bool lwip_freertos_init(async_context_t *context) {
     return true;
 }
 void lwip_freertos_deinit(__unused async_context_t *context) {
-    panic("unsupported");
+    if (done_lwip_init) {
+        __stopLWIPThread();
+        done_lwip_init = false;
+    }
 }
 #endif

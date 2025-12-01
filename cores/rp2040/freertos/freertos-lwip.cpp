@@ -57,6 +57,11 @@ void __startLWIPThread() {
     vTaskCoreAffinitySet(__lwipTask, 1 << 0);
 }
 
+void __stopLWIPThread() {
+    vQueueDelete(__lwipQueue);
+    vTaskDelete(__lwipTask);
+}
+
 extern "C" void __lwip(__lwip_op op, void *req, bool fromISR) {
     LWIPWork w;
     if (fromISR) {
