@@ -3,7 +3,7 @@
 
 #include "lwip/init.h"
 #include "pico/async_context.h"
-#include "freetros-lwip.h"
+#include "freertos-lwip.h"
 
 static bool done_lwip_init;
 
