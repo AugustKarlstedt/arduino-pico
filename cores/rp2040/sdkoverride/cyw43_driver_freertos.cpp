@@ -147,6 +147,7 @@ extern "C" bool __wrap_cyw43_driver_init(async_context_t *context) {
 extern "C" void __wrap_cyw43_driver_deinit(async_context_t *context) {
     cyw43_irq_deinit(nullptr);
     cyw43_deinit(&cyw43_state);
+    lwip_deinit();
 }
 
 // Prevent background processing in pensv and access by the other core

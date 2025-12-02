@@ -68,8 +68,7 @@ extern "C" {
         }
     }
 
-    extern void __real_lwip_deinit();
-    void __wrap_lwip_deinit() {
+    void lwip_deinit() {
         if (_lwip_rng) {
             delete _lwip_rng;
             _lwip_rng = nullptr;
@@ -77,7 +76,6 @@ extern "C" {
 #ifdef __FREERTOS
             __stopLWIPThread();
 #endif
-            // __real_lwip_deinit(); // there is no real deinit!
         }
     }
 

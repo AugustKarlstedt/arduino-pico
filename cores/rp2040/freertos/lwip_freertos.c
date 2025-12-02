@@ -4,8 +4,6 @@
 #include "lwip/init.h"
 #include "pico/async_context.h"
 
-void lwip_deinit() {} // deoesnt actually exist so just define it here
-
 static bool done_lwip_init = false;
 
 bool lwip_freertos_init(async_context_t *context) {
@@ -17,7 +15,7 @@ bool lwip_freertos_init(async_context_t *context) {
 }
 void lwip_freertos_deinit(__unused async_context_t *context) {
     if (done_lwip_init) {
-        lwip_deinit();
+        // deinit is called through the cyw43 driver, see cyw43_driver_freertos.cpp
         done_lwip_init = false;
     }
 }
